@@ -8,11 +8,17 @@ def emotionDetector():
 
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
-    dominant_emotion = response.pop('dominant_emotion')
 
-    result = f"For the given statement, the system response is {response}. The dominant emotion is {dominant_emotion}"
+    if response is None:
 
-    return result
+        return "Invalid text! Please try again!"
+
+    else:
+        dominant_emotion = response.pop('dominant_emotion')
+
+        result = f"For the given statement, the system response is {response}. The dominant emotion is {dominant_emotion}"
+
+        return result
 
 @app.route('/')
 def render_page():
